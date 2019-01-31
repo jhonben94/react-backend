@@ -8,6 +8,7 @@ const posts = require('./routes/api/posts');
 const mongoose = require('mongoose');
 const config = require('./config/keys');
 const bodyParser =require('body-parser');
+const passport = require('passport');
 
 //============ Inicialice Express App =============//
 
@@ -15,6 +16,9 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+// Passport Strategy - Middleware
+app.use( passport.initialize() );
+require('./config/passport')(passport);
 
 //Use Routes
 app.use('/api/users',users);
