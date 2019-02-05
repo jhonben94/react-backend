@@ -25,4 +25,4 @@ const UserSchema = new Schema({
 });
 // @param 1 nombre del esquema en la bd
 // @param 2 estructura del esquema
-module.exports = User = mongoose.model('user',UserSchema)
+module.exports = User = mongoose.model('user',UserSchema);

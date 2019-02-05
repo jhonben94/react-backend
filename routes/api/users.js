@@ -33,7 +33,7 @@ router.get('/test', (req,res) => {
             if(user){
                 errors.msg ='User already exists'
                 return res.status(400).json(
-                    {errors }
+                    errors 
                 );
             }else {
 
@@ -50,13 +50,13 @@ router.get('/test', (req,res) => {
                 });
                 bcryptjs.genSalt( 10, (err,salt) => {
                     bcryptjs.hash(newUser.password,salt, (err, hash) =>{ 
-                        if(err) throw err;
+                        if(err) res.status(400).json(err);
                         newUser.password= hash;
                         newUser.save()
                             .then( usr =>{
                                 res.status(201).json(usr);
                             })
-                            .catch( err => console.log(err) );
+                            .catch( err => res.status(400).json(err) );
 
                     });
                 });
@@ -108,11 +108,11 @@ router.get('/test', (req,res) => {
                             res.status(400).json({msg:'Password Incorrect.'});
                         }
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => res.status(400).json(err));
 
                 
             })
-            .catch();
+            .catch( err => res.status(400).json(err) );
  });
  //  @route  POST    api/users/login
  //  @des    Login User / Return token
